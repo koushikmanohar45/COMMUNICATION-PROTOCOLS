@@ -1,0 +1,61 @@
+module apb_tb();
+    reg PCLK;
+    reg PRESETn;
+    reg [7:0] PWDATA; 
+    reg [15:0]PADDR;
+    reg transfer;
+    reg PWRITE;
+    wire [7:0]PRDATA;
+    wire PSLVERR;
+    wire [2:0]PSEL; 
+    apb  dut(.*);
+  always #5 PCLK=~PCLK;
+  initial begin
+    $monitor("time=%0t PCLK=%b PRESTn=%b PWDATA=%b PADDR=%b PSEL=%B transfer=%b PWRITE=%b PRDATA=%b PSLVERR=%b ",$time,PCLK,PRESETn,PWDATA,PADDR,PSEL,transfer,PWRITE,PRDATA,PSLVERR);
+    $dumpfile("apb.vcd");
+    $dumpvars(0,apb_tb);
+PCLK=0;PRESETn=0;PWDATA=8'd12;PADDR=16'h0002;transfer=1;PWRITE=1;
+#20
+PRESETn=1;
+transfer=1;
+PWRITE=1;
+PWDATA=8'D12;
+PADDR=16'h0002;
+PADDR=16'h0002; PWDATA=8'd12; 
+#20; PADDR=16'h1002; PWDATA=8'd32; 
+#20; PADDR=16'h1102; PWDATA=8'd15; 
+#20; PADDR=16'h1202; PWDATA=8'd24; 
+#20; PADDR=16'h2002; PWDATA=8'd56; 
+#20; PADDR=16'h2102; PWDATA=8'd100;
+#20; PADDR=16'h2202; PWDATA=8'd120;
+#20; PADDR=16'h2302; PWDATA=8'd123; 
+#20; PADDR=16'h1002; PWDATA=8'd32; 
+#20; PADDR=16'bx; PWDATA=8'd15; 
+#20; PADDR=16'h3202; PWDATA=8'bx; 
+#20; PADDR=16'h4002; PWDATA=8'd56; 
+#20; PADDR=16'h5102; PWDATA=8'd100;
+#20; PADDR=16'h6202; PWDATA=8'd120;
+#20; PADDR=16'h7302; PWDATA=8'd123; 
+#20; PWRITE=0;PWDATA=8'D5;PADDR=16'h0002;
+#20; PADDR=16'h1002; PWDATA=8'd32; 
+#20; PADDR=16'h1102; PWDATA=8'd15; 
+#20; PADDR=16'h1202; PWDATA=8'd24; 
+#20; PADDR=16'h2002; PWDATA=8'd56; 
+#20; PADDR=16'h2102; PWDATA=8'd100;
+#20; PADDR=16'h2202; PWDATA=8'd120;
+#20; PADDR=16'h2302; PWDATA=8'd123; 
+#20; PADDR=16'h1002; PWDATA=8'd32; 
+#20; PADDR=16'bx; PWDATA=8'd15; 
+#20; PADDR=16'h3202; PWDATA=8'bx; 
+#20; PADDR=16'h4002; PWDATA=8'd56; 
+#20; PADDR=16'h5102; PWDATA=8'd100;
+#20; PADDR=16'h6202; PWDATA=8'd120;
+#20; PADDR=16'h7302; PWDATA=8'd123;
+
+#20 transfer=0;
+
+#100 $finish;
+
+#20 PRESETn=1;
+  end
+ endmodule
