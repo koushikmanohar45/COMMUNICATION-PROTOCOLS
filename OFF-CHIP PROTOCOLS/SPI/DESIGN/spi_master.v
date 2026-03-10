@@ -97,17 +97,10 @@ module master
               2'b00:CS0<=0;
               2'b01:CS1<=0;
               2'b10:CS2<=0;
-              2'b11:begin
-                CS0<=1'b1;
-                CS1<=1'b1;
-                CS2<=1'b1:
-                CS3<=1'b1;
-              end
               default:begin
                 CS0<=1'b1;
                 CS1<=1'b1;
-                CS2<=1'b1:
-                CS3<=1'b1;
+                CS2<=1'b1;
               end
              endcase
              bit_count<=0;
@@ -167,7 +160,9 @@ module master
             end
          end
         STOP:begin
-          slav_sel=2'b11;
+          CS0<=1'b1;
+          CS1<=1'b1;
+          CS2<=1'b1;
         end
       endcase
         end
